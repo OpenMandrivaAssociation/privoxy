@@ -3,7 +3,7 @@
 Summary:	Privoxy - privacy enhancing HTTP proxy
 Name:		privoxy
 Version:	3.0.6
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPL
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Group:		Networking/Other
@@ -18,6 +18,10 @@ Patch1:		privoxy-2.9.13-daemon.patch
 Patch4:		privoxy-3.0.3-parallel.patch
 # (fc) 3.0.6-1mdv fix doc generation
 Patch5:		privoxy-3.0.6-fixdoc.patch
+# (fc) 3.0.6-2mdv many filter fixes from CVS
+Patch6:		privoxy-3.0.6-cvsfixes.patch
+# (fc) 3.0.6-2mdv fix Google Reader filter 
+Patch7:		privoxy-3.0.6-fixreader.patch
 
 Requires(post):	rpm-helper
 Requires(preun):	rpm-helper
@@ -51,6 +55,8 @@ Privoxy proxy is running on port 8118
 %patch1 -p1 -b .daemon
 %patch4 -p1 -b .parallel
 %patch5 -p1 -b .fixdoc
+%patch6 -p1 -b .cvsfixes
+%patch7 -p1 -b .fixreader
 
 autoheader
 autoconf
