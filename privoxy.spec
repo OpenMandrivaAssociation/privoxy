@@ -5,7 +5,6 @@ Name:		privoxy
 Version:	3.0.6
 Release:	%mkrel 2
 License:	GPL
-BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Group:		Networking/Other
 URL:		http://www.privoxy.org/
 
