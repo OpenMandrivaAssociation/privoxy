@@ -2,24 +2,21 @@
 
 Summary:	Privoxy - privacy enhancing HTTP proxy
 Name:		privoxy
-Version:	3.0.6
-Release:	%mkrel 2
+Version:	3.0.8
+Release:	%mkrel 1
 License:	GPL
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Group:		Networking/Other
 URL:		http://www.privoxy.org/
 
-Source0:	http://prdownloads.sf.net/ijbswa/%{name}-%{version}-stable-src.tar.bz2
-# privoxy should belong to section 8 of manpage, not section 1
-Patch0:		privoxy-manpage.patch
+Source0:	http://prdownloads.sf.net/ijbswa/%{name}-%{version}-stable-src.tar.gz
+Source1:	http://prdownloads.sf.net/ijbswa/%{name}-%{version}-stable-src.tar.gz.asc
 # use daemon user to run privoxy
 Patch1:		privoxy-2.9.13-daemon.patch
 # (fc) 3.0.3-7mdk add support for parallel initscript
 Patch4:		privoxy-3.0.3-parallel.patch
 # (fc) 3.0.6-1mdv fix doc generation
 Patch5:		privoxy-3.0.6-fixdoc.patch
-# (fc) 3.0.6-2mdv many filter fixes from CVS
-Patch6:		privoxy-3.0.6-cvsfixes.patch
 # (fc) 3.0.6-2mdv fix Google Reader filter 
 Patch7:		privoxy-3.0.6-fixreader.patch
 
@@ -51,15 +48,16 @@ Privoxy proxy is running on port 8118
 
 %prep
 %setup -n %{name}-%{version}-stable -q
-%patch0 -p1 -b .manpage
 %patch1 -p1 -b .daemon
 %patch4 -p1 -b .parallel
 %patch5 -p1 -b .fixdoc
-%patch6 -p1 -b .cvsfixes
 %patch7 -p1 -b .fixreader
 
-autoheader
-autoconf
+# manpage should be in section 8
+sed -i -e 's/^\(\.TH "PRIVOXY" \)"1"/\1"8"/g' privoxy.1 
+
+#needed for build
+autoreconf
 
 %build
 
@@ -136,5 +134,4 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{privoxyconf}/templates
 %config(noreplace) %{privoxyconf}/trust
 %config(noreplace) %{privoxyconf}/user.action
-
-
+%config(noreplace) %{privoxyconf}/regression-tests.action
