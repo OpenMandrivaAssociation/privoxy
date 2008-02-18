@@ -1,14 +1,12 @@
 %define privoxyconf %{_sysconfdir}/%{name}
 
-Summary:	Privoxy - privacy enhancing HTTP proxy
+Summary:	Privacy enhancing HTTP proxy
 Name:		privoxy
 Version:	3.0.8
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPL
-BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Group:		Networking/Other
 URL:		http://www.privoxy.org/
-
 Source0:	http://prdownloads.sf.net/ijbswa/%{name}-%{version}-stable-src.tar.gz
 Source1:	http://prdownloads.sf.net/ijbswa/%{name}-%{version}-stable-src.tar.gz.asc
 # use daemon user to run privoxy
@@ -19,26 +17,25 @@ Patch4:		privoxy-3.0.3-parallel.patch
 Patch5:		privoxy-3.0.6-fixdoc.patch
 # (fc) 3.0.6-2mdv fix Google Reader filter 
 Patch7:		privoxy-3.0.6-fixreader.patch
-
-Requires(post):	rpm-helper
-Requires(preun):	rpm-helper
-
+Requires(post): rpm-helper
+Requires(preun): rpm-helper
 Obsoletes:	junkbuster
 Provides:	junkbuster = %{version}-%{release}
+Provides:	webproxy
 BuildRequires:	docbook-style-dsssl
 BuildRequires:	docbook-dtd31-sgml
 BuildRequires:	lynx
 BuildRequires:	man
 BuildRequires:	pcre-devel
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
-Privoxy is a web proxy with advanced filtering
-capabilities for protecting privacy, filtering web page content,
-managing cookies, controlling access, and removing ads, banners,
-pop-ups and other obnoxious Internet Junk. Privoxy has a very
-flexible configuration and can be customized to suit individual needs
-and tastes. Privoxy has application for both stand-alone
-systems and multi-user networks.
+Privoxy is a web proxy with advanced filtering capabilities for protecting
+privacy, filtering web page content, managing cookies, controlling access, and
+removing ads, banners, pop-ups and other obnoxious Internet Junk. Privoxy has a
+very flexible configuration and can be customized to suit individual needs and
+tastes. Privoxy has application for both stand-alone systems and multi-user
+networks.
 
 Privoxy was previously called Internet Junkbuster.
 
@@ -47,6 +44,7 @@ To configure privoxy, go to http://config.privoxy.org/
 Privoxy proxy is running on port 8118
 
 %prep
+
 %setup -n %{name}-%{version}-stable -q
 %patch1 -p1 -b .daemon
 %patch4 -p1 -b .parallel
