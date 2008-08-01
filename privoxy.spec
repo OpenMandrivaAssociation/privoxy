@@ -3,7 +3,7 @@
 Summary:	Privacy enhancing HTTP proxy
 Name:		privoxy
 Version:	3.0.8
-Release:	%mkrel 4
+Release:	%mkrel 5
 License:	GPL
 Group:		Networking/Other
 URL:		http://www.privoxy.org/
