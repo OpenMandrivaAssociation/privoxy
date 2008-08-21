@@ -2,8 +2,8 @@
 
 Summary:	Privacy enhancing HTTP proxy
 Name:		privoxy
-Version:	3.0.8
-Release:	%mkrel 5
+Version:	3.0.10
+Release:	%mkrel 1
 License:	GPL
 Group:		Networking/Other
 URL:		http://www.privoxy.org/
@@ -13,8 +13,6 @@ Source1:	http://prdownloads.sf.net/ijbswa/%{name}-%{version}-stable-src.tar.gz.a
 Patch1:		privoxy-2.9.13-daemon.patch
 # (fc) 3.0.3-7mdk add support for parallel initscript
 Patch4:		privoxy-3.0.3-parallel.patch
-# (fc) 3.0.6-1mdv fix doc generation
-Patch5:		privoxy-3.0.6-fixdoc.patch
 # (fc) 3.0.6-2mdv fix Google Reader filter 
 Patch7:		privoxy-3.0.6-fixreader.patch
 Requires(post): rpm-helper
@@ -48,7 +46,6 @@ Privoxy proxy is running on port 8118
 %setup -n %{name}-%{version}-stable -q
 %patch1 -p1 -b .daemon
 %patch4 -p1 -b .parallel
-%patch5 -p1 -b .fixdoc
 %patch7 -p1 -b .fixreader
 
 # manpage should be in section 8
@@ -116,7 +113,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root)
 %doc AUTHORS ChangeLog README  
-%doc doc/text doc/webserver
+%doc doc/webserver
 %attr (0700,daemon,daemon) /var/log/privoxy
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %{_sbindir}/*
