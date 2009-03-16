@@ -2,7 +2,7 @@
 
 Summary:	Privacy enhancing HTTP proxy
 Name:		privoxy
-Version:	3.0.10
+Version:	3.0.11
 Release:	%mkrel 1
 License:	GPL
 Group:		Networking/Other
@@ -125,8 +125,8 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{privoxyconf}/config
 %config            %{privoxyconf}/default.action
 %config(noreplace) %{privoxyconf}/default.filter
-%config            %{privoxyconf}/standard.action
 %config(noreplace) %{privoxyconf}/templates
+%config(noreplace) %{privoxyconf}/match-all.action
 %config(noreplace) %{privoxyconf}/trust
 %config(noreplace) %{privoxyconf}/user.action
 %config(noreplace) %{privoxyconf}/regression-tests.action
