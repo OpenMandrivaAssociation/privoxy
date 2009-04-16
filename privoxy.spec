@@ -3,7 +3,7 @@
 Summary:	Privacy enhancing HTTP proxy
 Name:		privoxy
 Version:	3.0.12
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPL
 Group:		Networking/Other
 URL:		http://www.privoxy.org/
@@ -93,6 +93,9 @@ sed -e 's!^confdir.*!confdir /etc/privoxy!g' \
     -e 's!^logdir.*!logdir /var/log/privoxy!g' \
     < config  > %{buildroot}%{privoxyconf}/config
 
+# create compatibility symlink
+ln -s match-all.action %{buildroot}/%{privoxyconf}/standard.action
+
 %triggerin -- msec < 0.17
 for i in 0 1 2 3 4 5; do
   permfile="%{_sysconfdir}/security/msec/perm.$i"
@@ -133,3 +136,4 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{privoxyconf}/trust
 %config(noreplace) %{privoxyconf}/user.action
 %config(noreplace) %{privoxyconf}/regression-tests.action
+%{privoxyconf}/standard.action
