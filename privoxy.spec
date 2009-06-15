@@ -1,14 +1,16 @@
 %define privoxyconf %{_sysconfdir}/%{name}
 
+%define reltype beta
+
 Summary:	Privacy enhancing HTTP proxy
 Name:		privoxy
-Version:	3.0.12
-Release:	%mkrel 2
+Version:	3.0.13
+Release:	%mkrel 1
 License:	GPL
 Group:		Networking/Other
 URL:		http://www.privoxy.org/
-Source0:	http://prdownloads.sf.net/ijbswa/%{name}-%{version}-stable-src.tar.gz
-Source1:	http://prdownloads.sf.net/ijbswa/%{name}-%{version}-stable-src.tar.gz.asc
+Source0:	http://prdownloads.sf.net/ijbswa/%{name}-%{version}-%{reltype}-src.tar.gz
+Source1:	http://prdownloads.sf.net/ijbswa/%{name}-%{version}-%{reltype}-src.tar.gz.asc
 # use daemon user to run privoxy
 Patch1:		privoxy-2.9.13-daemon.patch
 # (fc) 3.0.3-7mdk add support for parallel initscript
@@ -45,7 +47,7 @@ Privoxy proxy is running on port 8118
 
 %prep
 
-%setup -n %{name}-%{version}-stable -q
+%setup -n %{name}-%{version}-%{reltype} -q
 %patch1 -p1 -b .daemon
 %patch4 -p1 -b .parallel
 %patch7 -p1 -b .fixreader
@@ -76,7 +78,6 @@ mkdir -p %{buildroot}%{_sbindir} \
 install -m 755 privoxy %{buildroot}%{_sbindir}/privoxy
 install -m 644 privoxy.1 %{buildroot}%{_mandir}/man8/privoxy.8
 
-perl -pi -e "s|/etc/junkbuster/|/etc/privoxy/|g" privoxy.{monthly,weekly}
 # Install various config files
 for i in *.action default.filter trust; do
 	install -m 644 $i %{buildroot}%{privoxyconf}/
@@ -92,6 +93,9 @@ install -m 755 privoxy.init %{buildroot}%{_initrddir}/%{name}
 sed -e 's!^confdir.*!confdir /etc/privoxy!g' \
     -e 's!^logdir.*!logdir /var/log/privoxy!g' \
     < config  > %{buildroot}%{privoxyconf}/config
+
+#remove backup files
+rm -f doc/privoxy/webserver/user-manual/*.bak
 
 # create compatibility symlink
 ln -s match-all.action %{buildroot}/%{privoxyconf}/standard.action
