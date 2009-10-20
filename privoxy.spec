@@ -4,24 +4,22 @@
 
 Summary:	Privacy enhancing HTTP proxy
 Name:		privoxy
-Version:	3.0.14
+Version:	3.0.15
 Release:	%mkrel 1
 License:	GPL
 Group:		Networking/Other
 URL:		http://www.privoxy.org/
 Source0:	http://prdownloads.sf.net/ijbswa/%{name}-%{version}-%{reltype}-src.tar.gz
 Source1:	http://prdownloads.sf.net/ijbswa/%{name}-%{version}-%{reltype}-src.tar.gz.asc
-# use daemon user to run privoxy
-Patch1:		privoxy-2.9.13-daemon.patch
-# (fc) 3.0.3-7mdk add support for parallel initscript
-Patch4:		privoxy-3.0.3-parallel.patch
+Source2:	privoxy.logrotate
+Source3:	privoxy.init
 Requires(post): rpm-helper
 Requires(preun): rpm-helper
 Obsoletes:	junkbuster
 Provides:	junkbuster = %{version}-%{release}
 Provides:	webproxy
 BuildRequires:	docbook-style-dsssl
-BuildRequires:	docbook-dtd31-sgml
+BuildRequires:	docbook-dtd42-xml
 BuildRequires:	lynx
 BuildRequires:	man
 BuildRequires:	pcre-devel
@@ -44,8 +42,6 @@ Privoxy proxy is running on port 8118
 %prep
 
 %setup -n %{name}-%{version}-%{reltype} -q
-%patch1 -p1 -b .daemon
-%patch4 -p1 -b .parallel
 
 # manpage should be in section 8
 sed -i -e 's/^\(\.TH "PRIVOXY" \)"1"/\1"8"/g' privoxy.1 
@@ -58,7 +54,7 @@ autoreconf
 %serverbuild
 %configure2_5x --with-user=daemon --with-group=daemon
 %make
-make redhat-dok
+make dok
 
 %install
 rm -rf %{buildroot}
@@ -79,8 +75,8 @@ done
 for i in templates/*; do
 	install -m 644 $i %{buildroot}%{privoxyconf}/templates/
 done
-install -m 644 privoxy.logrotate %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
-install -m 755 privoxy.init %{buildroot}%{_initrddir}/%{name}
+install -m 644 %{SOURCE2} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
+install -m 755 %{SOURCE3} %{buildroot}%{_initrddir}/%{name}
 
 # verify all file locations, etc. in the config file
 # don't start with ^ or commented lines are not replaced
