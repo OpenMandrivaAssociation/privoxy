@@ -20,6 +20,7 @@ Provides:	junkbuster = %{version}-%{release}
 Provides:	webproxy
 BuildRequires:	docbook-style-dsssl
 BuildRequires:	docbook-dtd42-xml
+BuildRequires: docbook-dtd31-sgml
 BuildRequires:	lynx
 BuildRequires:	man
 BuildRequires:	pcre-devel
