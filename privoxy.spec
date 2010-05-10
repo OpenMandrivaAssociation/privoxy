@@ -1,10 +1,10 @@
 %define privoxyconf %{_sysconfdir}/%{name}
 
-%define reltype beta
+%define reltype stable
 
 Summary:	Privacy enhancing HTTP proxy
 Name:		privoxy
-Version:	3.0.15
+Version:	3.0.16
 Release:	%mkrel 1
 License:	GPL
 Group:		Networking/Other
