@@ -24,6 +24,7 @@ BuildRequires: docbook-dtd31-sgml
 BuildRequires:	lynx
 BuildRequires:	man
 BuildRequires:	pcre-devel
+BuildRequires:	zlib-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
@@ -47,15 +48,10 @@ Privoxy proxy is running on port 8118
 # manpage should be in section 8
 sed -i -e 's/^\(\.TH "PRIVOXY" \)"1"/\1"8"/g' privoxy.1 
 
-#needed for build
-autoreconf
-
 %build
-
 %serverbuild
 %configure2_5x --with-user=daemon --with-group=daemon
 %make
-make dok
 
 %install
 rm -rf %{buildroot}
