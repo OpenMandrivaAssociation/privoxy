@@ -49,6 +49,7 @@ Privoxy proxy is running on port 8118
 sed -i -e 's/^\(\.TH "PRIVOXY" \)"1"/\1"8"/g' privoxy.1 
 
 %build
+autoreconf -fi
 %serverbuild
 %configure2_5x --with-user=daemon --with-group=daemon
 %make
