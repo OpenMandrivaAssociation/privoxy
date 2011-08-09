@@ -5,7 +5,7 @@
 Summary:	Privacy enhancing HTTP proxy
 Name:		privoxy
 Version:	3.0.17
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPL
 Group:		Networking/Other
 URL:		http://www.privoxy.org/
@@ -13,6 +13,7 @@ Source0:	http://prdownloads.sf.net/ijbswa/%{name}-%{version}-%{reltype}-src.tar.
 Source1:	http://prdownloads.sf.net/ijbswa/%{name}-%{version}-%{reltype}-src.tar.gz.asc
 Source2:	privoxy.logrotate
 Source3:	privoxy.init
+Patch0:		privoxy.missing.user.filter.patch
 Requires(post): rpm-helper
 Requires(preun): rpm-helper
 Obsoletes:	junkbuster
@@ -47,6 +48,9 @@ Privoxy proxy is running on port 8118
 
 # manpage should be in section 8
 sed -i -e 's/^\(\.TH "PRIVOXY" \)"1"/\1"8"/g' privoxy.1 
+
+# privoxy.missing.user.filter.patch
+%patch0 -p1
 
 %build
 autoreconf -fi
