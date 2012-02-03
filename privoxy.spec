@@ -4,9 +4,9 @@
 
 Summary:	Privacy enhancing HTTP proxy
 Name:		privoxy
-Version:	3.0.17
-Release:	%mkrel 2
-License:	GPL
+Version:	3.0.19
+Release:	%mkrel 1
+License:	GPLv2
 Group:		Networking/Other
 URL:		http://www.privoxy.org/
 Source0:	http://prdownloads.sf.net/ijbswa/%{name}-%{version}-%{reltype}-src.tar.gz
@@ -21,12 +21,11 @@ Provides:	junkbuster = %{version}-%{release}
 Provides:	webproxy
 BuildRequires:	docbook-style-dsssl
 BuildRequires:	docbook-dtd42-xml
-BuildRequires: docbook-dtd31-sgml
+BuildRequires:	docbook-dtd31-sgml
 BuildRequires:	lynx
 BuildRequires:	man
 BuildRequires:	pcre-devel
 BuildRequires:	zlib-devel
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 Privoxy is a web proxy with advanced filtering capabilities for protecting
@@ -43,7 +42,6 @@ To configure privoxy, go to http://config.privoxy.org/
 Privoxy proxy is running on port 8118
 
 %prep
-
 %setup -n %{name}-%{version}-%{reltype} -q
 
 # manpage should be in section 8
@@ -59,38 +57,38 @@ autoreconf -fi
 %make
 
 %install
-rm -rf %{buildroot}
-mkdir -p %{buildroot}%{_sbindir} \
-         %{buildroot}%{_mandir}/man8 \
-         %{buildroot}/var/log/privoxy \
-         %{buildroot}%{privoxyconf}/templates \
-         %{buildroot}%{_sysconfdir}/logrotate.d \
-         %{buildroot}%{_initrddir}
+%__rm -rf %{buildroot}
+%__mkdir_p %{buildroot}%{_sbindir} \
+           %{buildroot}%{_mandir}/man8 \
+           %{buildroot}/var/log/privoxy \
+           %{buildroot}%{privoxyconf}/templates \
+           %{buildroot}%{_sysconfdir}/logrotate.d \
+           %{buildroot}%{_initrddir}
 
-install -m 755 privoxy %{buildroot}%{_sbindir}/privoxy
-install -m 644 privoxy.1 %{buildroot}%{_mandir}/man8/privoxy.8
+%__install -m 755 privoxy %{buildroot}%{_sbindir}/privoxy
+%__install -m 644 privoxy.1 %{buildroot}%{_mandir}/man8/privoxy.8
 
 # Install various config files
 for i in *.action default.filter trust; do
-	install -m 644 $i %{buildroot}%{privoxyconf}/
+	%__install -m 644 $i %{buildroot}%{privoxyconf}/
 done
 for i in templates/*; do
-	install -m 644 $i %{buildroot}%{privoxyconf}/templates/
+	%__install -m 644 $i %{buildroot}%{privoxyconf}/templates/
 done
-install -m 644 %{SOURCE2} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
-install -m 755 %{SOURCE3} %{buildroot}%{_initrddir}/%{name}
+%__install -m 644 %{SOURCE2} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
+%__install -m 755 %{SOURCE3} %{buildroot}%{_initrddir}/%{name}
 
 # verify all file locations, etc. in the config file
 # don't start with ^ or commented lines are not replaced
-sed -e 's!^confdir.*!confdir /etc/privoxy!g' \
+%__sed -e 's!^confdir.*!confdir /etc/privoxy!g' \
     -e 's!^logdir.*!logdir /var/log/privoxy!g' \
     < config  > %{buildroot}%{privoxyconf}/config
 
 #remove backup files
-rm -f doc/privoxy/webserver/user-manual/*.bak
+%__rm -f doc/privoxy/webserver/user-manual/*.bak
 
 # create compatibility symlink
-ln -s match-all.action %{buildroot}/%{privoxyconf}/standard.action
+%__ln_s match-all.action %{buildroot}/%{privoxyconf}/standard.action
 
 %triggerin -- msec < 0.17
 for i in 0 1 2 3 4 5; do
@@ -108,13 +106,12 @@ done
 %preun
 %_preun_service privoxy
 
-
 %clean
-rm -rf $RPM_BUILD_ROOT
+%__rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
-%doc AUTHORS ChangeLog README  
+%doc AUTHORS ChangeLog README
 %doc doc/webserver
 %attr (0700,daemon,daemon) /var/log/privoxy
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
