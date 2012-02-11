@@ -5,7 +5,7 @@
 Summary:	Privacy enhancing HTTP proxy
 Name:		privoxy
 Version:	3.0.19
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPLv2
 Group:		Networking/Other
 URL:		http://www.privoxy.org/
