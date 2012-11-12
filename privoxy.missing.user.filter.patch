@@ -1,0 +1,11 @@
+--- privoxy-3.0.17-stable/config.fix	2011-08-09 16:14:46.887157641 +0400
++++ privoxy-3.0.17-stable/config	2011-08-09 16:15:06.380767759 +0400
+@@ -414,7 +414,7 @@ actionsfile user.action      # User cust
+ #      separate file, such as user.filter.
+ #
+ filterfile default.filter
+-filterfile user.filter      # User customizations
++#filterfile user.filter      # User customizations
+ #
+ #
+ #  2.6. logfile
