@@ -130,3 +130,135 @@ done
 %config(noreplace) %{privoxyconf}/user.action
 %config(noreplace) %{privoxyconf}/regression-tests.action
 %{privoxyconf}/standard.action
+
+
+%changelog
+* Sat Feb 11 2012 Oden Eriksson <oeriksson@mandriva.com> 3.0.19-2mdv2012.0
++ Revision: 773025
+- relink against libpcre.so.1
+
+* Fri Feb 03 2012 Andrey Bondrov <abondrov@mandriva.org> 3.0.19-1
++ Revision: 770811
+- New version 3.0.19
+
+* Tue Aug 09 2011 Alexander Barakin <abarakin@mandriva.org> 3.0.17-2
++ Revision: 693760
+- missing user.filter file
+  see https://qa.mandriva.com/show_bug.cgi?id=63573
+
+* Tue May 17 2011 Funda Wang <fwang@mandriva.org> 3.0.17-1
++ Revision: 675884
+- use autoreconf
+- br zlib
+- update to new version 3.0.17
+
+* Tue Dec 07 2010 Oden Eriksson <oeriksson@mandriva.com> 3.0.16-2mdv2011.0
++ Revision: 614612
+- the mass rebuild of 2010.1 packages
+
+* Mon May 10 2010 Frederic Crozat <fcrozat@mandriva.com> 3.0.16-1mdv2010.1
++ Revision: 544312
+- Release 3.0.16 (stable)
+
+* Wed Oct 21 2009 Frederic Crozat <fcrozat@mandriva.com> 3.0.15-1mdv2010.0
++ Revision: 458511
+- Fix buildrequires
+- Release 3.0.15
+- Replace patches 1 & 4 by source 1 & 2
+- Fix buildrequires
+
+* Mon Jul 27 2009 Frederic Crozat <fcrozat@mandriva.com> 3.0.14-1mdv2010.0
++ Revision: 400620
+- Release 3.0.14 (beta)
+- remove patches 7 (no longer needed) 8, (merged upstream)
+
+* Mon Jun 15 2009 Frederic Crozat <fcrozat@mandriva.com> 3.0.13-1mdv2010.0
++ Revision: 386048
+- Release 3.0.13 (beta), with IPv6 support
+- do no package backup doc files (Mdv bug #37689)
+
+* Thu Apr 16 2009 Frederic Crozat <fcrozat@mandriva.com> 3.0.12-2mdv2009.1
++ Revision: 367771
+- Fix upgrade from previous release if /etc/privoxy/config was modified
+
+* Mon Mar 23 2009 Frederic Crozat <fcrozat@mandriva.com> 3.0.12-1mdv2009.1
++ Revision: 360616
+- Release 3.0.12
+- Regenerate patch7
+- Patch8: fix typo in xml doc
+
+* Mon Mar 16 2009 Frederic Crozat <fcrozat@mandriva.com> 3.0.11-1mdv2009.1
++ Revision: 355925
+- Release 3.0.11
+
+* Thu Aug 21 2008 Frederic Crozat <fcrozat@mandriva.com> 3.0.10-1mdv2009.0
++ Revision: 274675
+- add missing signature file
+- Release 3.0.10
+- Remove patch5 (obsolete)
+
+* Fri Aug 01 2008 Thierry Vignaud <tv@mandriva.org> 3.0.8-5mdv2009.0
++ Revision: 259295
+- rebuild
+
+* Thu Jul 24 2008 Thierry Vignaud <tv@mandriva.org> 3.0.8-4mdv2009.0
++ Revision: 247222
+- rebuild
+
+* Mon Feb 18 2008 Oden Eriksson <oeriksson@mandriva.com> 3.0.8-2mdv2008.1
++ Revision: 171431
+- add a virtal provides of webproxy
+
+* Mon Jan 21 2008 Frederic Crozat <fcrozat@mandriva.com> 3.0.8-1mdv2008.1
++ Revision: 155687
+- Release 3.0.8
+- Remove patches 0 (replace by sed magic), 6 (merged upstream)
+
+  + Olivier Blin <blino@mandriva.org>
+    - restore BuildRoot
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - kill re-definition of %%buildroot on Pixel's request
+
+* Tue Sep 18 2007 Frederic Crozat <fcrozat@mandriva.com> 3.0.6-2mdv2008.0
++ Revision: 89689
+- Patch6 (CVS): many filter fixes from CVS
+- Patch7: fix Google Reader filter
+
+
+* Wed Mar 07 2007 Frederic Crozat <fcrozat@mandriva.com> 3.0.6-1mdv2007.1
++ Revision: 134608
+- Release 3.0.6
+- Bunzip patches
+- Remove patches 2, 3 (merged upstream)
+- Patch5: fix documentation generation
+- Regenerate patch1
+- Import privoxy
+
+* Thu May 04 2006 Frederic Crozat <fcrozat@mandriva.com> 3.0.3-11mdk
+- Update patch2 to not break Google Finance either
+
+* Thu Feb 09 2006 Frederic Crozat <fcrozat@mandriva.com> 3.0.3-10mdk
+- Update patch2 to not break gmail by default
+
+* Mon Jan 09 2006 Olivier Blin <oblin@mandriva.com> 3.0.3-9mdk
+- don't forget the LSB patch
+
+* Mon Jan 09 2006 Olivier Blin <oblin@mandriva.com> 3.0.3-8mdk
+- convert parallel init to LSB
+
+* Tue Jan 03 2006 Frederic Crozat <fcrozat@mandriva.com> 3.0.3-7mdk
+- Fix prereq
+- use mkrel
+- Patch4: add support for parallel initscript
+
+* Mon Jan 10 2005 Frederic Crozat <fcrozat@mandrakesoft.com> 3.0.3-6mdk 
+- Patch3 : fix ie-exploit filter to not be triggered by Amazon
+
+* Sat Jul 24 2004 Frederic Crozat <fcrozat@mandrakesoft.com> 3.0.3-5mdk
+- Fix perms on privoxy config directory
+
+* Thu Jul 22 2004 Frederic Crozat <fcrozat@mandrakesoft.com> 3.0.3-4mdk
+- Fix default perms/owner of configuration file, otherwise privoxy won't
+  be able to modify its config files from web interface.
+

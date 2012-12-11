@@ -1,5 +1,2 @@
 sources:
-  "privoxy-3.0.19-stable-src.tar.gz:"	a82287cbf48375ef449d021473a366baeca49250
-  "privoxy-3.0.19-stable-src.tar.gz.asc:"	8a9ebc866a8b00474d428a74f29c100d7821b8f0
-  "privoxy.init:"	778ede64654a053e6a22add8ee4adcc4c9ed8214
-  "privoxy.logrotate:"	3e74a50353ab95704d5b4b4444738530ffd2fa17
+  "privoxy-3.0.19-stable-src.tar.gz": a82287cbf48375ef449d021473a366baeca49250
