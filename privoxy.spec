@@ -23,7 +23,7 @@ BuildRequires:	docbook-dtd42-xml
 BuildRequires:	docbook-dtd31-sgml
 BuildRequires:	lynx
 BuildRequires:	man
-BuildRequires:	pcreposix-devel
+BuildRequires:	pkgconfig(libpcreposix)
 BuildRequires:	zlib-devel
 
 %description
