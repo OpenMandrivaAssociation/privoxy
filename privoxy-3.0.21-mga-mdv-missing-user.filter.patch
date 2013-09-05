@@ -1,0 +1,11 @@
+--- privoxy-3.0.21-stable/config-orig	2013-03-12 09:37:46.202352855 +0100
++++ privoxy-3.0.21-stable/config	2013-03-12 09:37:57.567055810 +0100
+@@ -406,7 +406,7 @@
+ #      separate file, such as user.filter.
+ #
+ filterfile default.filter
+-filterfile user.filter      # User customizations
++#filterfile user.filter      # User customizations
+ #
+ #  2.6. logfile
+ #  =============

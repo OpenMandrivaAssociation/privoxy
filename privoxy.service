@@ -1,0 +1,13 @@
+[Unit]
+Description=Privacy enhancing HTTP Proxy
+After=network.target
+ 
+[Service]
+Type=forking
+PIDFile=/run/privoxy.pid
+ExecStart=/usr/sbin/privoxy --pidfile /run/privoxy.pid --user daemon.daemon /etc/privoxy/config
+StandardOutput=syslog
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target
