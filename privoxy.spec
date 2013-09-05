@@ -53,6 +53,7 @@ sed -i -e 's/^\(\.TH "PRIVOXY" \)"1"/\1"8"/g' privoxy.1
 autoreconf
 
 %build
+find . -type f -perm 0640 -exec chmod 644 {} \;
 
 %serverbuild
 %configure2_5x --with-user=daemon --with-group=daemon
