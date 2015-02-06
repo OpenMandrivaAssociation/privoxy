@@ -4,7 +4,7 @@
 Summary:	Privacy enhancing HTTP proxy
 Name:		privoxy
 Version:	3.0.21
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		Networking/Other
 URL:		http://www.privoxy.org/
