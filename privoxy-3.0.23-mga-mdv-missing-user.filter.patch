@@ -1,0 +1,12 @@
+diff -Naur privoxy-3.0.23-stable.orig/config privoxy-3.0.23-stable/config
+--- privoxy-3.0.23-stable.orig/config	2015-06-30 14:32:09.182696050 +0300
++++ privoxy-3.0.23-stable/config	2015-06-30 14:32:09.190696050 +0300
+@@ -430,7 +430,7 @@
+ #      separate file, such as user.filter.
+ #
+ filterfile default.filter
+-filterfile user.filter      # User customizations
++#filterfile user.filter      # User customizations
+ #
+ #  2.7. logfile
+ #  =============

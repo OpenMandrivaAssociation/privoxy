@@ -3,8 +3,8 @@
 
 Summary:	Privacy enhancing HTTP proxy
 Name:		privoxy
-Version:	3.0.21
-Release:	2
+Version:	3.0.23
+Release:	1
 License:	GPLv2+
 Group:		Networking/Other
 URL:		http://www.privoxy.org/
@@ -12,7 +12,7 @@ Source0:	http://prdownloads.sf.net/ijbswa/%{name}-%{version}-%{reltype}-src.tar.
 Source1:	http://prdownloads.sf.net/ijbswa/%{name}-%{version}-%{reltype}-src.tar.gz.asc
 Source2:	privoxy.logrotate
 Source4:	%{name}.service
-Patch0:		privoxy-3.0.21-mga-mdv-missing-user.filter.patch
+Patch0:		privoxy-3.0.23-mga-mdv-missing-user.filter.patch
 Requires(post): rpm-helper
 Requires(preun): rpm-helper
 Obsoletes:	junkbuster
