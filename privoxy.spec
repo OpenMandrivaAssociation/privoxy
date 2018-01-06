@@ -3,21 +3,18 @@
 
 Summary:	Privacy enhancing HTTP proxy
 Name:		privoxy
-Version:	3.0.23
+Version:	3.0.26
 Release:	1
 License:	GPLv2+
 Group:		Networking/Other
 URL:		http://www.privoxy.org/
+
 Source0:	http://prdownloads.sf.net/ijbswa/%{name}-%{version}-%{reltype}-src.tar.gz
 Source1:	http://prdownloads.sf.net/ijbswa/%{name}-%{version}-%{reltype}-src.tar.gz.asc
 Source2:	privoxy.logrotate
 Source4:	%{name}.service
 Patch0:		privoxy-3.0.23-mga-mdv-missing-user.filter.patch
-Requires(post): rpm-helper
-Requires(preun): rpm-helper
-Obsoletes:	junkbuster
-Provides:	junkbuster = %{version}-%{release}
-Provides:	webproxy
+
 BuildRequires:	docbook-style-dsssl
 BuildRequires:	docbook-dtd42-xml
 BuildRequires:	docbook-dtd31-sgml
@@ -25,6 +22,13 @@ BuildRequires:	lynx
 BuildRequires:	man
 BuildRequires:	pkgconfig(libpcreposix)
 BuildRequires:	zlib-devel
+
+Requires(post): rpm-helper
+Requires(preun): rpm-helper
+
+#Obsoletes:	junkbuster
+#Provides:	junkbuster = %{version}-%{release}
+#Provides:	webproxy
 
 %description
 Privoxy is a web proxy with advanced filtering capabilities for protecting
@@ -40,45 +44,79 @@ To configure privoxy, go to http://config.privoxy.org/
 
 Privoxy proxy is running on port 8118
 
+%files
+%doc AUTHORS ChangeLog README
+%doc doc/webserver
+%dir %{_localstatedir}/log/%{name}
+%config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
+%{_sbindir}/*
+%{_mandir}/man8/*
+# owned by 'daemon' user
+%defattr(664,daemon,daemon,755)
+%dir %{privoxyconf}
+%config(noreplace) %{privoxyconf}/config
+%config(noreplace) %{privoxyconf}/default.action
+%config(noreplace) %{privoxyconf}/default.filter
+%config(noreplace) %{privoxyconf}/templates
+%config(noreplace) %{privoxyconf}/match-all.action
+%config(noreplace) %{privoxyconf}/trust
+%config(noreplace) %{privoxyconf}/user.action
+%config(noreplace) %{privoxyconf}/regression-tests.action
+%{privoxyconf}/standard.action
+%{_unitdir}/%{name}.service
+
+#--------------------------------------------------------------------------------
+
 %prep
-
-%setup -n %{name}-%{version}-%{reltype} -q
-
-# manpage should be in section 8
-sed -i -e 's/^\(\.TH "PRIVOXY" \)"1"/\1"8"/g' privoxy.1 
+%setup -q -n %{name}-%{version}-%{reltype}
+%apply_patches
 
 # privoxy.missing.user.filter.patch
-%patch0 -p1
-#needed for build
-autoreconf
+#% patch0 -p1
+
+# manpage should be in section 8
+sed -i -e 's/^\(\.TH "PRIVOXY" \)"1"/\1"8"/g' privoxy.1
+
+#fix permissions
+find . -type f -perm 0640 -exec chmod 0644 {} \;
 
 %build
-find . -type f -perm 0640 -exec chmod 644 {} \;
-
+autoreconf
 %serverbuild
-%configure2_5x --with-user=daemon --with-group=daemon
+%configure \
+	--with-user=daemon \
+	--with-group=daemon \
+	%{nil}
 %make
 
 %install
-mkdir -p %{buildroot}%{_sbindir} \
-         %{buildroot}%{_mandir}/man8 \
-         %{buildroot}/var/log/privoxy \
-         %{buildroot}%{privoxyconf}/templates \
-         %{buildroot}%{_sysconfdir}/logrotate.d
+# binary
+install -dm 0755 %{buildroot}%{_sbindir}/
+install -pm 0755 privoxy %{buildroot}%{_sbindir}/%{name}
 
-install -m 755 privoxy %{buildroot}%{_sbindir}/privoxy
-install -m 644 privoxy.1 %{buildroot}%{_mandir}/man8/privoxy.8
+# manpage
+install -dm 0755 %{buildroot}%{_mandir}/man8
+install -pm 0644 privoxy.1 %{buildroot}%{_mandir}/man8/%{name}.8
 
-# Install various config files
+# various config files
+#   filters
+install -dm 0755 %{buildroot}%{privoxyconf}/
 for i in *.action default.filter trust; do
-	install -m 644 $i %{buildroot}%{privoxyconf}/
+	install -pm 0644 $i %{buildroot}%{privoxyconf}/
 done
+#   templates
+install -dm 0755 %{buildroot}%{privoxyconf}/templates/
 for i in templates/*; do
-	install -m 644 $i %{buildroot}%{privoxyconf}/templates/
+	install -pm 0644 $i %{buildroot}%{privoxyconf}/templates/
 done
-install -m 644 %{SOURCE2} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
-install -d -m 755 %{buildroot}%{_unitdir}
-install -m 644 %{SOURCE4} %{buildroot}%{_unitdir}/%{name}.service
+#   logrotare
+install -dm 0755 %{buildroot}%{_sysconfdir}/logrotate.d/
+install -pm 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
+#   service
+install -dm 0755 %{buildroot}%{_unitdir}/
+install -pm 0644 %{SOURCE4} %{buildroot}%{_unitdir}/%{name}.service
+#   log
+install -dm 711 %{buildroot}%{_localstatedir}/log/%{name}/
 
 # verify all file locations, etc. in the config file
 # don't start with ^ or commented lines are not replaced
@@ -102,30 +140,9 @@ for i in 0 1 2 3 4 5; do
   fi
 done
 
-
 %post
 %_post_service %{name}
 
 %preun
 %_preun_service %{name}
 
-%files
-%doc AUTHORS ChangeLog README  
-%doc doc/webserver
-%attr (0700,daemon,daemon) /var/log/privoxy
-%config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
-%{_sbindir}/*
-%{_mandir}/man8/*
-
-%defattr(664,daemon,daemon,755)
-%dir %{privoxyconf}
-%config(noreplace) %{privoxyconf}/config
-%config            %{privoxyconf}/default.action
-%config(noreplace) %{privoxyconf}/default.filter
-%config(noreplace) %{privoxyconf}/templates
-%config(noreplace) %{privoxyconf}/match-all.action
-%config(noreplace) %{privoxyconf}/trust
-%config(noreplace) %{privoxyconf}/user.action
-%config(noreplace) %{privoxyconf}/regression-tests.action
-%{privoxyconf}/standard.action
-%{_unitdir}/%{name}.service
