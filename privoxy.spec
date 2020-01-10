@@ -69,7 +69,7 @@ Privoxy proxy is running on port 8118
 
 %prep
 %setup -q -n %{name}-%{version}-%{reltype}
-%apply_patches
+%autopatch -p1
 
 # privoxy.missing.user.filter.patch
 #% patch0 -p1
