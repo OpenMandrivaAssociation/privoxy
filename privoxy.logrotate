@@ -40,7 +40,7 @@
    compress
    size 1M
    postrotate
-        /sbin/service privoxy reload  2> /dev/null || true
+        /bin/systemctl reload privoxy.service  2> /dev/null || true
    endscript
 }
 
@@ -49,6 +49,7 @@
    compress
    size 1M
    postrotate
-        /sbin/service privoxy reload  2> /dev/null || true
+        /bin/systemctl reload privoxy.service  2> /dev/null || true
    endscript
 }
+
