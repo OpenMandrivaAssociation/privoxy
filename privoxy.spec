@@ -63,7 +63,6 @@ Privoxy proxy is running on port 8118
 #config(noreplace) %{privoxyconf}/user.filter
 %config(noreplace) %{privoxyconf}/regression-tests.action
 %config            %{privoxyconf}/standard.action
-%dir %{_localstatedir}/log/%{name}
 %{_mandir}/man8/%{name}.*
 
 # owned by 'daemon' user
