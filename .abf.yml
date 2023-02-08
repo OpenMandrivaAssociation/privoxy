@@ -1,3 +1,5 @@
 sources:
   privoxy-3.0.33-stable-src.tar.gz: 688da305077d8ecbcf6423e02201f01f7a7098f4
   privoxy-3.0.33-stable-src.tar.gz.asc: 67171aec7023ede88c621600c74a9b9e3b4025a8
+  privoxy-3.0.34-stable-src.tar.gz: e65298c4ee235320ea9ddfb689187bda29a63bbb
+  privoxy-3.0.34-stable-src.tar.gz.asc: aa07b1f023b88cd4b16224e7db5be26c8774265d

@@ -3,16 +3,16 @@
 
 Summary:	Privacy enhancing HTTP proxy
 Name:		privoxy
-Version:	3.0.33
-Release:	2
+Version:	3.0.34
+Release:	1
 License:	GPLv2+
 Group:		Networking/Other
 URL:		http://www.privoxy.org/
 
-Source0:	http://prdownloads.sf.net/ijbswa/%{name}-%{version}-%{reltype}-src.tar.gz
-Source1:	http://prdownloads.sf.net/ijbswa/%{name}-%{version}-%{reltype}-src.tar.gz.asc
+Source0:	https://sourceforge.net/projects/ijbswa/files/Sources/%{version}%20%28stable%29/%{name}-%{version}-%{reltype}-src.tar.gz
+Source1:	https://sourceforge.net/projects/ijbswa/files/Sources/%{version}%20%28stable%29//%{name}-%{version}-%{reltype}-src.tar.gz.asc
 Source2:	%{name}.logrotate
-Source4:	%{name}.service
+Source3:	%{name}.service
 
 BuildRequires:	man
 BuildRequires:	pkgconfig(libpcreposix)
