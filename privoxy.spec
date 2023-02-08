@@ -106,7 +106,7 @@ install -dm 0755 %{buildroot}%{_sysconfdir}/logrotate.d/
 install -pm 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
 #   service
 install -dm 0755 %{buildroot}%{_unitdir}/
-install -pm 0644 %{SOURCE4} %{buildroot}%{_unitdir}/%{name}.service
+install -pm 0644 %{SOURCE3} %{buildroot}%{_unitdir}/%{name}.service
 #   log
 install -dm 711 %{buildroot}%{_localstatedir}/log/%{name}/
 
