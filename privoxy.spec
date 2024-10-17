@@ -7,7 +7,7 @@ Version:	3.0.34
 Release:	1
 License:	GPLv2+
 Group:		Networking/Other
-URL:		http://www.privoxy.org/
+URL:		https://www.privoxy.org/
 
 Source0:	https://sourceforge.net/projects/ijbswa/files/Sources/%{version}%20%28stable%29/%{name}-%{version}-%{reltype}-src.tar.gz
 Source1:	https://sourceforge.net/projects/ijbswa/files/Sources/%{version}%20%28stable%29//%{name}-%{version}-%{reltype}-src.tar.gz.asc
