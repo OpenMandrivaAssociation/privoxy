@@ -3,7 +3,7 @@
 
 Summary:	Privacy enhancing HTTP proxy
 Name:		privoxy
-Version:	3.0.34
+Version:	4.0.0
 Release:	1
 License:	GPLv2+
 Group:		Networking/Other
