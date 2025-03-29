@@ -4,7 +4,7 @@
 Summary:	Privacy enhancing HTTP proxy
 Name:		privoxy
 Version:	4.0.0
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		Networking/Other
 URL:		https://www.privoxy.org/
@@ -13,6 +13,7 @@ Source0:	https://sourceforge.net/projects/ijbswa/files/Sources/%{version}%20%28s
 Source1:	https://sourceforge.net/projects/ijbswa/files/Sources/%{version}%20%28stable%29//%{name}-%{version}-%{reltype}-src.tar.gz.asc
 Source2:	%{name}.logrotate
 Source3:	%{name}.service
+Source4:	%{name}.sysusers
 
 BuildRequires:	man
 BuildRequires:	pkgconfig(libpcreposix)
@@ -107,6 +108,9 @@ install -pm 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
 #   service
 install -dm 0755 %{buildroot}%{_unitdir}/
 install -pm 0644 %{SOURCE3} %{buildroot}%{_unitdir}/%{name}.service
+#   system user(s)
+#install -dm 0755 %{buildroot}%{_sysusersdir}/
+#install -pm 0644 %{SOURCE4} %{buildroot}%%{_sysusersdir}{_sysusersdir}/${name}.conf
 #   log
 install -dm 711 %{buildroot}%{_localstatedir}/log/%{name}/
 
@@ -128,18 +132,4 @@ ln -s match-all.action %{buildroot}/%{privoxyconf}/standard.action
 
 # remove backup files
 rm -f doc/privoxy/webserver/user-manual/*.bak
-
-%pre
-#_pre_useradd %{name} %{privoxyconf} /sbin/nologin
-#_pre_groupadd %{name} %{name}
-
-%post
-%_post_service %{name}
-
-%preun
-%_preun_service %{name}
-
-%postun
-#_postun_userdel %{name}
-#_postun_groupdel %{name}
 

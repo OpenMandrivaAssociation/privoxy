@@ -1,0 +1,3 @@
+#Type Name   ID  GECOS                        Home directory  Shell
+u     daemon  -   "Privoxy user"  /etc/privoxy      /sbin/nologin
+
