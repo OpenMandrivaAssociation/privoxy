@@ -15,6 +15,11 @@ Source2:	%{name}.logrotate
 Source3:	%{name}.service
 Source4:	%{name}.sysusers
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	man
 BuildRequires:	pkgconfig(libpcreposix)
 BuildRequires:	pkgconfig(zlib)
