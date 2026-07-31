@@ -3,8 +3,8 @@
 
 Summary:	Privacy enhancing HTTP proxy
 Name:		privoxy
-Version:	4.0.0
-Release:	2
+Version:	4.2.0
+Release:	1
 License:	GPLv2+
 Group:		Networking/Other
 URL:		https://www.privoxy.org/
@@ -78,7 +78,7 @@ Privoxy proxy is running on port 8118
 #--------------------------------------------------------------------------------
 
 %prep
-%autosetup -p1 -n %{name}-%{version}-%{reltype}
+%autosetup -p1 -n privoxy-4.2.0-stable
 
 %build
 autoreconf -fiv
